@@ -25,9 +25,9 @@ Before you start, you must have the following installed on your system:
 3.  **Ollama**: Download and install the Ollama application.
 4.  **Model**: Pull the required model using the Ollama command line.
 
-    ```bash
+    bash
     ollama pull granite3.3:8b
-    ```
+    
 
 ##Setup and Installation
 
@@ -37,20 +37,20 @@ Follow these steps to get your Excel Formula AI Assistant running.
 
 Ensure your project files are organized correctly:
 
-```
+
 
 Excel Formula AI Assistant/
 ├── app.py
 └── templates/
 └── index.html
 
-```
+
 
 ### 2. Create a Virtual Environment
 
 It is highly recommended to use a virtual environment to manage dependencies:
 
-```bash
+bash
 # Create the environment
 python3 -m venv .venv
 
@@ -59,15 +59,15 @@ source .venv/bin/activate
 
 # Activate the environment (Windows - PowerShell)
 # .venv\Scripts\Activate
-````
+
 
 ### 3\. Install Python Dependencies
 
 Install all necessary libraries within your active virtual environment:
 
-```bash
+bash
 pip install flask flask-cors requests beautifulsoup4
-```
+
 
 *(Note: The previous versions of this project used `yfinance` and other libraries, which are not needed for the Excel Formula Generator, simplifying the dependencies.)*
 
@@ -85,9 +85,9 @@ You will need **two separate terminals** running concurrently.
 
 Start the Ollama server to handle the AI requests:
 
-```bash
+bash
 ollama serve
-```
+
 
 *(Leave this terminal running. If you see an "address already in use" error, it means Ollama is already running in the background.)*
 
