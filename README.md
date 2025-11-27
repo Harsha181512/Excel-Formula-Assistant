@@ -51,10 +51,10 @@ It is highly recommended to use a virtual environment to manage dependencies:
 # Create the environment
 python3 -m venv .venv
 
-# Activate the environment (Mac/Linux)
+### Activate the environment (Mac/Linux)
 source .venv/bin/activate
 
-# Activate the environment (Windows - PowerShell)
+### Activate the environment (Windows - PowerShell)
 # .venv\Scripts\Activate
 
 
@@ -68,7 +68,7 @@ pip install flask flask-cors requests beautifulsoup4
 
 *(Note: The previous versions of this project used `yfinance` and other libraries, which are not needed for the Excel Formula Generator, simplifying the dependencies.)*
 
-## Configuration (app.py)
+### Configuration (app.py)
 
 The application uses port **`5000`** for the Flask server and port **`11434`** for the Ollama API. These are set in your `app.py` file.
 
@@ -97,7 +97,7 @@ python app.py
 
 You should see output indicating the server is running on `http://127.0.0.1:5000/`.
 
-## Usage
+### Usage
 
 1.  Open your web browser and navigate to: **`http://localhost:5000/`**
 2.  Type a request into the chat box, such as:
