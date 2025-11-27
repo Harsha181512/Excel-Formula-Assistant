@@ -1,4 +1,4 @@
-# Excel-Formula-Assistant
+## Excel-Formula-Assistant
 That's a great final step\! A clear **`README.md`** file is essential for your project. It explains what your Excel Formula AI Assistant does, how to set it up, and how to run it.
 
 Here is a complete `README.md` file using Markdown format.
