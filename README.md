@@ -3,7 +3,7 @@ That's a great final step\! A clear **`README.md`** file is essential for your p
 
 Here is a complete `README.md` file using Markdown format.
 
-````markdown
+markdown
 #Excel Formula AI Assistant
 
 A full-stack application that uses a local Large Language Model (LLM) powered by **Ollama** to generate complex Excel formulas and provide clear explanations based on natural language input.
@@ -25,7 +25,7 @@ Before you start, you must have the following installed on your system:
 3.  **Ollama**: Download and install the Ollama application.
 4.  **Model**: Pull the required model using the Ollama command line.
 
-    bash
+    **bash**
     ollama pull granite3.3:8b
     
 
@@ -37,20 +37,17 @@ Follow these steps to get your Excel Formula AI Assistant running.
 
 Ensure your project files are organized correctly:
 
-
-
 Excel Formula AI Assistant/
 ├── app.py
 └── templates/
 └── index.html
 
 
-
 ### 2. Create a Virtual Environment
 
 It is highly recommended to use a virtual environment to manage dependencies:
 
-bash
+**bash**
 # Create the environment
 python3 -m venv .venv
 
@@ -61,11 +58,11 @@ source .venv/bin/activate
 # .venv\Scripts\Activate
 
 
-### 3\. Install Python Dependencies
+### 3. Install Python Dependencies
 
 Install all necessary libraries within your active virtual environment:
 
-bash
+**bash**
 pip install flask flask-cors requests beautifulsoup4
 
 
@@ -85,9 +82,8 @@ You will need **two separate terminals** running concurrently.
 
 Start the Ollama server to handle the AI requests:
 
-bash
+**bash**
 ollama serve
-
 
 *(Leave this terminal running. If you see an "address already in use" error, it means Ollama is already running in the background.)*
 
@@ -95,9 +91,9 @@ ollama serve
 
 In your second terminal (with your virtual environment activated), start the Flask web server:
 
-```bash
+**bash**
 python app.py
-```
+
 
 You should see output indicating the server is running on `http://127.0.0.1:5000/`.
 
@@ -113,11 +109,10 @@ You should see output indicating the server is running on `http://127.0.0.1:5000
 
 The AI's response is structured to be easily parsed by the frontend:
 
-```
 Formula: =SUMIF(B:B, "Completed", A:A)
 
 Explanation: The SUMIF function checks the criteria (the word "Completed") within the range (Column B) and sums the corresponding values in the sum_range (Column A).
-```
+
 
 ```
 ```
