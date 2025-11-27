@@ -38,9 +38,9 @@ Follow these steps to get your Excel Formula AI Assistant running.
 Ensure your project files are organized correctly:
 
 Excel Formula AI Assistant/
-├──- app.py
-└──- templates/
-└──- index.html
+├── app.py
+└── templates/
+└── index.html
 
 
 ### 2. Create a Virtual Environment
@@ -48,7 +48,7 @@ Excel Formula AI Assistant/
 It is highly recommended to use a virtual environment to manage dependencies:
 
 **bash**
-# Create the environment
+### Create the environment
 python3 -m venv .venv
 
 ### Activate the environment (Mac/Linux)
