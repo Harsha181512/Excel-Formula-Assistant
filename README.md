@@ -55,7 +55,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 
 ### Activate the environment (Windows - PowerShell)
-# .venv\Scripts\Activate
+.venv\Scripts\Activate
 
 
 ### 3. Install Python Dependencies
@@ -74,7 +74,7 @@ The application uses port **`5000`** for the Flask server and port **`11434`** f
 
 The `SYSTEM_PROMPT` in your `app.py` is crucial for guiding the LLM to output correct Excel formulas.
 
-## Running the Application
+### Running the Application
 
 You will need **two separate terminals** running concurrently.
 
@@ -113,6 +113,3 @@ Formula: =SUMIF(B:B, "Completed", A:A)
 
 Explanation: The SUMIF function checks the criteria (the word "Completed") within the range (Column B) and sums the corresponding values in the sum_range (Column A).
 
-
-```
-```
