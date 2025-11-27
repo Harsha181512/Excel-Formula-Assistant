@@ -29,7 +29,7 @@ Before you start, you must have the following installed on your system:
     ollama pull granite3.3:8b
     
 
-##Setup and Installation
+### Setup and Installation
 
 Follow these steps to get your Excel Formula AI Assistant running.
 
