@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Excel Formula Assistant</title>
+  <style>
+    :root {
+      --bg-color: #f5f6f8;
+      --container-bg: #ffffff;
+      --chat-bg: #f9fafb;
+      --text-color: #1f1f1f;
+      --user-bubble-bg: #1a73e8;
+      --user-bubble-text: #ffffff;
+      --ai-bubble-bg: #e6e8ea;
+      --ai-bubble-text: #1f1f1f;
+      --input-bg: #ffffff;
+      --input-border: #d0d4d9;
+      --button-bg: #1a73e8;
+      --button-hover-bg: #155ab6;
+      --button-text: #ffffff;
+      --header-color: #1a1a1a;
+      --border-radius: 8px;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #121212;
+      --container-bg: #1c1c1c;
+      --chat-bg: #202124;
+      --text-color: #e8eaed;
+      --user-bubble-bg: #4285f4;
+      --user-bubble-text: #ffffff;
+      --ai-bubble-bg: #2d2f31;
+      --ai-bubble-text: #e8eaed;
+      --input-bg: #2c2c2c;
+      --input-border: #444;
+      --button-bg: #4285f4;
+      --button-hover-bg: #3367d6;
+      --button-text: #ffffff;
+      --header-color: #ffffff;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 720px;
+      height: 90vh;
+      background-color: var(--container-bg);
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--input-border);
+      background-color: var(--container-bg);
+    }
+
+    header h1 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--header-color);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: var(--text-color);
+      opacity: 0.6;
+      transition: opacity 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      opacity: 1;
+    }
+
+    .chat-container {
+      flex-grow: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background-color: var(--chat-bg);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scroll-behavior: smooth;
+    }
+
+    .message-row {
+      display: flex;
+    }
+
+    .user-message {
+      justify-content: flex-end;
+    }
+
+    .ai-message {
+      justify-content: flex-start;
+    }
+
+    .message-bubble {
+      max-width: 75%;
+      padding: 12px 16px;
+      border-radius: var(--border-radius);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .user-message .message-bubble {
+      background-color: var(--user-bubble-bg);
+      color: var(--user-bubble-text);
+      border-bottom-right-radius: 4px;
+    }
+
+    .ai-message .message-bubble {
+      background-color: var(--ai-bubble-bg);
+      color: var(--ai-bubble-text);
+      border-bottom-left-radius: 4px;
+    }
+
+    .ai-response-content pre {
+      margin-top: 10px;
+      background: transparent;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      border-left: 3px solid var(--button-bg);
+    }
+
+    .copy-button {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: none;
+      border: none;
+      font-size: 0.8rem;
+      color: var(--text-color);
+      cursor: pointer;
+      opacity: 0.5;
+    }
+
+    .copy-button:hover {
+      opacity: 1;
+    }
+
+    .input-container {
+      display: flex;
+      padding: 16px 20px;
+      border-top: 1px solid var(--input-border);
+      background-color: var(--container-bg);
+      gap: 10px;
+    }
+
+    #prompt-input {
+      flex: 1;
+      padding: 12px 14px;
+      font-size: 1rem;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--input-border);
+      background-color: var(--input-bg);
+      color: var(--text-color);
+    }
+
+    #send-button {
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    #send-button:hover {
+      background-color: var(--button-hover-bg);
+    }
+
+    .loading-dots {
+      font-size: 1.5rem;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <div class="main-container">
+    <header>
+      <h1>Excel Formula Assistant</h1>
+      <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+    </header>
+    <div class="chat-container" id="chat-container"></div>
+    <div class="input-container">
+      <input type="text" id="prompt-input" placeholder="Ask about Excel formulas..." />
+      <button id="send-button">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const chatContainer = document.getElementById('chat-container');
+    const promptInput = document.getElementById('prompt-input');
+    const sendButton = document.getElementById('send-button');
+
+    sendButton.addEventListener('click', sendMessage);
+    promptInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    async function sendMessage() {
+      const prompt = promptInput.value.trim();
+      if (!prompt) return;
+
+      const userMessage = createMessageElement(prompt, 'user-message');
+      chatContainer.appendChild(userMessage);
+      promptInput.value = '';
+
+      const loading = createMessageElement('Thinking...', 'ai-message', 'loading');
+      chatContainer.appendChild(loading);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+
+      try {
+        const res = await fetch('http://localhost:5000/generate_formula', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt })
+        });
+
+        if (!res.ok) {
+          throw new Error('Server error.');
+        }
+
+        const data = await res.json();
+        const bubble = loading.querySelector('.message-bubble');
+        const lines = data.formula.split('\n');
+        let content = '<div class="ai-response-content">';
+
+        lines.forEach(line => {
+          if (line.startsWith('Formula:')) {
+            content += `<strong>Formula:</strong><pre>${line.slice(8).trim()}</pre>`;
+          } else if (line.startsWith('Explanation:')) {
+            content += `<p><strong>Explanation:</strong> ${line.slice(12).trim()}</p>`;
+          } else {
+            content += `<p>${line.trim()}</p>`;
+          }
+        });
+
+        content += '</div>';
+        bubble.innerHTML = content;
+      } catch (e) {
+        loading.querySelector('.message-bubble').innerHTML = `<p style="color:red;">${e.message}</p>`;
+      }
+
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function createMessageElement(text, className, state = '') {
+      const row = document.createElement('div');
+      row.className = `message-row ${className}`;
+      const bubble = document.createElement('div');
+      bubble.className = 'message-bubble';
+
+      if (state === 'loading') {
+        bubble.innerHTML = '<span class="loading-dots">...</span>';
+      } else {
+        bubble.textContent = text;
+      }
+
+      row.appendChild(bubble);
+      return row;
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      body.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>
